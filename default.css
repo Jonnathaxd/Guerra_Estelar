@@ -1,0 +1,11 @@
+body{
+  background: grey;
+}
+#interface {
+  width: 400px;/*tamanho largura div*/
+  height: 500px; /*altura div*/
+  border: 2px solid black; /*tamanho/tipo/cor da borda*/
+  margin: 2.5rem auto;
+  position: relative;
+  box-shadow: 3px 3px 10px rgb(248, 248, 248); /*sombra atras da div*/
+}
