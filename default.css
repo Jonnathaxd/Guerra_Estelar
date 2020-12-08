@@ -3,6 +3,14 @@ body{
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-size: 1.4vw;
 }
+header {
+  max-height: 5rem;
+}
+h1 {
+  display: inline-block;
+  text-shadow: 0 0 5px white; 
+  transform: translateY(-25%);
+}
 #container {
   box-sizing: border-box;
   text-align: center;
@@ -16,7 +24,7 @@ body{
   width: 32vw;/*tamanho largura div*/
   height: 80vh; /*altura div*/
   border: 2px solid black; /*tamanho/tipo/cor da borda*/
-  margin: 2.5rem 2%;
+  margin: 0  2%;
   display: inline-block;
   box-shadow: 0px 0px 10px rgb(248, 248, 248); /*sombra atras da div*/
   

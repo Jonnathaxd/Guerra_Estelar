@@ -41,9 +41,9 @@ var list_aste = []; // variável para armazenar asteroids
 
 const hero = {
     p_x_recorte: 0, // ponto inicial x no plano cartesiano da sprite
-    p_y_recorte: 97, // ponto inicial y no plano cartesiano da sprite
-    largura_recorte: 999, 
-    altura_recorte: 803,
+    p_y_recorte: 82, // ponto inicial y no plano cartesiano da sprite
+    largura_recorte: 986, 
+    altura_recorte: 785,
     p_atual_x: 180, // ponto atual no plano cartesiano x do game 
     p_atual_y: 400, // ponto atual no plano cartesiano y do game 
     largura_game: 44, // largura do desenho no game
@@ -217,8 +217,6 @@ const asteroide = {
         }
     }  
 }
-
-
 
 const parede = {
     p_x_recorte: 0, // ponto inicial x no plano cartesiano da sprite
@@ -459,12 +457,13 @@ const colisoes = {
 }
 
 function verifica_colisao(a, b){
-    let p_centro_x = ((a.p_atual_x + (a.largura_game/2)) - (b.p_atual_x+(b.largura_game/2))); 
-    let p_centro_y = ((a.p_atual_y + (a.altura_game/2)) - (b.p_atual_y+(b.altura_game/2)));
     let largura_v = (a.largura_game / 2) + (b.largura_game / 2);
     let altura_v = (a.altura_game / 2) + (b.altura_game / 2);
+    let dx = a.p_atual_x - b.p_atual_x;
+    let dy = a.p_atual_y - b.p_atual_y;
+    let distance = Math.sqrt(dx * dx + dy * dy);
 
-    if(Math.abs(p_centro_x) < largura_v && Math.abs(p_centro_y) < altura_v){ //faz a verificação do centro dos dois objetos... e a soma de suas metades...
+    if (distance < ((a.largura_game / 2) + (b.largura_game / 2))){ //faz a verificação do centro dos dois objetos... colisão circular..
         explo_som.play();
         explo_som.currentTime = 0.0;
         a.colidido = true;
