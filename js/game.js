@@ -117,28 +117,6 @@ const hero = {
     }
 }
 
-const mobReto = {
-    p_x_recorte : 14, //ponto inicial do x no plano cartesiano da sprite
-    p_y_recorte : 9, //ponto inicial do y no plano cartesiano da sprite
-    largura_recorte : 137,
-    altura_recorte : 186,
-    p_atual_x : Math.floor(Math.random ()* canvas.width) + 1, //ponto atual no plano cartesiano x do game
-    p_atual_y : 0, //ponto atual no plano cartesiano y do game
-    largura_game : 40,//largura da imagem no game
-    altura_game : 50,//altura da imagem no game
-    
-    desenha : function(){ //desenha a nave na tela
-        contexto.drawImage(
-            mobReto_img,
-            mobReto.p_x_recorte, mobReto.p_y_recorte,
-            mobReto.largura_recorte, mobReto.altura_recorte,
-            mobReto.p_atual_x, mobReto.p_atual_y,
-            mobReto.largura_game, mobReto.altura_game
-        )
-
-    }
-
-}
 
 const mobCruzado1 = {
     p_x_recorte : 13, //ponto inicial do x no plano cartesiano da sprite
@@ -450,10 +428,7 @@ const colisoes = {
                 jogoON = false;
             }
         }
-
     }
-
-
 }
 
 function verifica_colisao(a, b){
@@ -492,9 +467,7 @@ function loop() { //loop que desenha os sprites infinitamente
         hero.atualiza(); // atualiza o movimento do herói
         hero.desenha_tiro(); // desenha tiro quando pressionado
     
-
-        mobReto.desenha(); //desenha o mob que fica no canto superior da tela (deveria atirar)
-
+        //ameaças
         mobCruzado1.desenha();
         mobCruzado1.atualiza();
 
