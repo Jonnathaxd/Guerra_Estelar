@@ -32,8 +32,14 @@ explosao.src = './images/explosao.png';
 const game_over_img = new Image();
 game_over_img.src = './images/game-over-3.png'
 
+const pause_game = new Image();
+pause_game.src ='./images/pause.png'
+
+const abertura = new Image();
+abertura.src = './images/abertura.png'
+
 var jogoON = true; // variável para verifica se o heroi está vivo e o jogo pode contiuar ...
-var movEsquerda = movDireita = movCima = movBaixo = tiro = false; // variáveis de verificação para o pressionamento das teclas
+var movEsquerda = movDireita = movCima = movBaixo = tiro = pause = false; // variáveis de verificação para o pressionamento das teclas
 var list_ball = []; // variável para armazenar as balas
 var list_mobs = []; // variável para armazenar os mobs
 var list_aste = []; // variável para armazenar asteroids
@@ -243,7 +249,16 @@ const parede = {
             canvas.width/5, canvas.height/5, 
             canvas.width,canvas.height
         )
-    }
+    },
+    desenha_pause: function(){
+        contexto.drawImage(
+            pause_game,
+            0,0, 
+            1024,1024,
+            canvas.width/9, canvas.height/14, 
+            canvas.width*4,canvas.height*4
+        )
+    },
 }
 
 function Obj_bala(p_atual_x, p_atual_y, ctx){ // funcão q cria um objeto  
@@ -293,14 +308,14 @@ function obj_asteroide(ctx){
 }
 
 function random_mobs(){
-    if(document.hasFocus()){
+    if(document.hasFocus() && !pause){
         mob = new Obj_Mob(contexto);
         list_mobs.push(mob);
     }
 }
 
 function random_aste(){
-    if(document.hasFocus()){
+    if(document.hasFocus() && !pause){
         asteroid = new obj_asteroide(contexto)
         list_aste.push(asteroid)
     }
@@ -346,6 +361,14 @@ const botoes = {
         if (evento == 39){// 39 == direita;
             //console.log('direita ficou false')
             movDireita = false;
+        }
+        if (evento == 13){ // enter
+            if(!pause){
+                pause = true;
+            }
+            else{
+                pause = false;
+            }
         }
         if (evento == 32) { // 32 == espaço
             //console.log('espaço ficou false');
@@ -446,7 +469,10 @@ function verifica_colisao(a, b){
     }
 }
 
-
+function inicia(){
+    jogoON = true;
+    hero.colidido = false;
+}
 
 
 
@@ -459,7 +485,7 @@ if (jogoON){
 }
 
 function loop() { //loop que desenha os sprites infinitamente
-    if(jogoON){
+    if(jogoON && !pause){
         parede.desenha(); //desenha o fundo a cada frame
         parede.atualiza(); // faz a movimentação do fundo
 
@@ -479,6 +505,11 @@ function loop() { //loop que desenha os sprites infinitamente
         colisoes.hero_mob(hero, list_mobs, verifica_colisao);
         colisoes.hero_asteroid(hero, list_aste, verifica_colisao);
         colisoes.mob_asteroid(list_aste, list_mobs, verifica_colisao);
+    }
+    else if(jogoON && pause){
+        parede.desenha(); 
+        parede.atualiza();
+        parede.desenha_pause()
     }
     else{
         parede.desenha(); 

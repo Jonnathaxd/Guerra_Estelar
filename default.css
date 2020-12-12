@@ -3,8 +3,8 @@ body{
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-size: 1.4vw;
 }
-header {
-  max-height: 5rem;
+#jogar {
+  font-family: 'Press Start 2P', cursive;
 }
 h1 {
   display: inline-block;
@@ -12,6 +12,7 @@ h1 {
   transform: translateY(-25%);
 }
 #container {
+  margin-top: 3rem;
   box-sizing: border-box;
   text-align: center;
   padding: 0 3vw 0 3vw;
@@ -37,9 +38,8 @@ h1 {
   height: 28vw;
   border-radius: 50%;
   position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
-
+  top: 30%;
+  transform: translateY(-30%);
   border: 5px solid black;
   box-shadow: 0px 0px 8px white;
   
@@ -65,8 +65,8 @@ h1 {
   max-width: 28vw;
   padding: 0.8vw;
   position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 30%;
+  transform: translateY(-30%);
   right: 3vw;
   box-shadow: 0 0 3px black;
 }
@@ -76,4 +76,23 @@ h1 {
 #inform img {
   width: 13vw;
   display: inline-block;
+}
+
+#jogar {
+  font-size: 2vw;
+  padding: 2vw;
+  border-radius: 1rem;
+  border: none;
+  transition: 0.8s;
+  width: 25vw;
+}
+#jogar:hover {
+  background-color: black;
+  color: white;
+}
+#menu {
+  position: fixed;
+  right: 6%;
+  bottom: 5%;
+  
 }
