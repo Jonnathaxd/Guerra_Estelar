@@ -48,6 +48,7 @@ ok.src = './efeitos/pronto.wav'
 
 var jogoON = inicio =  true; // variável para verifica se o heroi está vivo e o jogo pode contiuar .../ tela de inicio 
 var movEsquerda = movDireita = movCima = movBaixo = tiro = pause = continua = false; // variáveis de verificação para o pressionamento das teclas/ lógica abstrata
+var time = pontuacao = 0 ;
 var list_ball = []; // variável para armazenar as balas
 var list_mobs = []; // variável para armazenar os mobs
 var list_aste = []; // variável para armazenar asteroids
@@ -419,6 +420,8 @@ const colisoes = {
         for(var i=0; i < lista_a.length; i++){
             if(lista_a[i].colidido){
                 lista_a.splice(i,1)
+                pontuacao += 5
+                document.getElementById('score').innerHTML = pontuacao
             }      
         }
         for(var i=0; i < lista_b.length; i++){
@@ -457,6 +460,8 @@ const colisoes = {
         }
         if(hero.colidido){
             jogoON=false;
+            document.getElementById('record_final').innerHTML = `Pontuação: ${pontuacao}`
+            document.getElementById('tempo_final').innerHTML = `Tempo: ${time}s`
         }
     },
 
@@ -467,6 +472,8 @@ const colisoes = {
             }
             if(hero.colidido){
                 jogoON = false;
+                document.getElementById('record_final').innerHTML = `Pontuação: ${pontuacao}`
+                document.getElementById('tempo_final').innerHTML = `Tempo: ${time}s`
             }
         }
     }
@@ -490,21 +497,28 @@ function verifica_colisao(a, b){
 function inicia(){
     jogoON = true; // faz o jogo voltar a funcionar
     hero.colidido = false; // faz o herois "reviver"
+    
 }
 
 function ativa_menu(){
     inicio = false; // tira a tela de menu inicial
     continua = true; // faz voltar a adicionar monstros
     ok.play()
+    document.getElementById('topo_sco').style.display = 'block'
     document.getElementById('menu').style.display = 'none'
 }
 
 function reset(){
     continua = true;
     jogoON = true;
+    time = 0
+    pontuacao = 0
     hero.colidido = false;
     ok.play()
-    document.getElementById('restart').style.display = 'none'
+    document.getElementById("tempo").innerHTML = time;
+    document.getElementById('score').innerHTML = pontuacao;
+    document.getElementById('topo_sco').style.display = 'block'
+    document.getElementById('record').style.display = 'none'
 }
 function novo_jogo(){ // leve gambiarra para reiniciar valores
     for(let i=0; i < list_ball.length; i++){
@@ -528,8 +542,25 @@ if (jogoON){
     window.addEventListener('keydown', botoes.botoesOn); // quando ocorre o evento de precionar algum botão ele dispara a função e checa qual foi o botão
     window.addEventListener('keyup', botoes.botoesOff); // ocorre o contrario ... quando se solta o botão ele faz a checagem disparando a função
 }
+/*tempo decorrido sobrevivendo */
 
-function loop() { //loop que desenha os sprites infinitamente
+function cronometro() {
+        setInterval(function() {
+            if(document.hasFocus() && !pause && continua){
+                time ++;
+            }
+            //console.log(time);
+        document.getElementById("tempo").innerHTML = time;
+
+                
+        }, 1000)
+    }
+
+;
+
+    /*loop que desenha os sprites infinitamente*/
+
+function loop() { 
     if(inicio == true){
         parede.desenha(); 
         parede.atualiza();
@@ -568,9 +599,12 @@ function loop() { //loop que desenha os sprites infinitamente
             parede.desenha(); 
             parede.atualiza();
             parede.desenha_game_over();
+            
             continua = false;
             novo_jogo();
+            document.getElementById('topo_sco').style.display = 'none'
             document.getElementById('restart').style.display = 'block';
+            document.getElementById('record').style.display = 'block'
         }
     }
     if(document.hasFocus()){
@@ -582,5 +616,5 @@ function loop() { //loop que desenha os sprites infinitamente
     
 };
 
-
+cronometro()
 loop() // ativa a função loop :D

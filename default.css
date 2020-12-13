@@ -12,10 +12,10 @@ h1 {
   transform: translateY(-25%);
 }
 #container {
-  margin-top: 2.6rem;
+  margin-top: 1.8vw;
   box-sizing: border-box;
   text-align: center;
-  padding: 0 3vw 0 3vw;
+  padding: 0 2.5vw 0 2.5vw;
 }
 #fase {
   height: 80vh;
@@ -104,7 +104,7 @@ h1 {
 }
 
 #restart {
-  bottom: 7rem;
+  
   position: relative;
   display: none;
 }
@@ -121,4 +121,44 @@ h1 {
 #restart button:hover {
   background-color: black;
   color: white;
+}
+
+#topo_sco {
+  margin: 1rem 0 0 1rem;
+  bottom:100%;
+  right: 2vw;
+  position: relative;
+  color: white;
+  font-size: 0.8vw;
+  font-family: 'Press Start 2P', cursive;
+  display: none;
+}
+
+#tempo {
+  display: inline-block;
+}
+#top2 {
+  display: inline-block;
+  margin-left: 3.5vw;
+}
+
+#score {
+  display: inline-block;
+}
+#record {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1vw;
+    color: white;
+    position: relative;
+    display: none;
+    text-align: center;
+    bottom: 45%;
+}
+
+#record_final{
+  display: block;
+}
+#tempo_final{ 
+  display: block;
+  padding: 0.5vw;
 }

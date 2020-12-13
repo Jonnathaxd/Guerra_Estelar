@@ -19,6 +19,30 @@
 		<div id='interface'>
 			<canvas id='fase' width='400' height='500' ></canvas>
 			<!--Colisão-->
+			<div id='topo_sco'>
+				Tempo decorrido:
+				<div id='tempo'></div>
+				<div id='top2'>
+					Score:
+					<div id ='score'>0</div>
+				</div>
+			</div>
+			<div id='record'>
+				<div id='record_final'>
+				</div>
+				<div id='tempo_final'>
+				</div>
+				<div id='restart'> 
+					<button onclick="reset()">
+						Jogar Novamente
+					</button>
+				</div>
+			</div>
+			<div id='menu'>
+				<button onclick="ativa_menu()">
+					Jogar
+				</button>
+			</div>
 		</div>
 		<div id='inform'>
 			<h2>RESUMO:</h2>
@@ -27,16 +51,7 @@
 			<img src="./images/teclas-solo.png" alt="teclas">
 			<img src="./images/teclas-spa.png" alt="espaço">
 		</div>
-		<div id='menu'>
-			<button onclick="ativa_menu()">
-				Jogar
-			</button>
-		</div>
-		<div id='restart'> 
-			<button onclick="reset()">
-				Jogar Novamente
-			</button>
-	</div>
+		
 	</div>
 	<script src="./js/game.js"></script>
 </body>
