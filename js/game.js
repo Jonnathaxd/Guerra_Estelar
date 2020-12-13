@@ -38,11 +38,20 @@ pause_game.src ='./images/pause.png'
 const abertura = new Image();
 abertura.src = './images/abertura.png'
 
-var jogoON = true; // variável para verifica se o heroi está vivo e o jogo pode contiuar ...
-var movEsquerda = movDireita = movCima = movBaixo = tiro = pause = false; // variáveis de verificação para o pressionamento das teclas
+const musica_fundo = new Audio();
+musica_fundo.src = './efeitos/fundo.mp3'
+
+const ok = new Audio();
+ok.src = './efeitos/pronto.wav'
+
+
+
+var jogoON = inicio =  true; // variável para verifica se o heroi está vivo e o jogo pode contiuar .../ tela de inicio 
+var movEsquerda = movDireita = movCima = movBaixo = tiro = pause = continua = false; // variáveis de verificação para o pressionamento das teclas/ lógica abstrata
 var list_ball = []; // variável para armazenar as balas
 var list_mobs = []; // variável para armazenar os mobs
 var list_aste = []; // variável para armazenar asteroids
+
 
 
 const hero = {
@@ -201,7 +210,6 @@ const asteroide = {
         }
     }  
 }
-
 const parede = {
     p_x_recorte: 0, // ponto inicial x no plano cartesiano da sprite
     p_y_recorte: 0, // ponto inicial y no plano cartesiano da sprite
@@ -255,10 +263,20 @@ const parede = {
             pause_game,
             0,0, 
             1024,1024,
-            canvas.width/9, canvas.height/14, 
-            canvas.width*4,canvas.height*4
+            canvas.width/2 - (canvas.width/1.2)/1.9, 0, 
+            canvas.width/1.2,canvas.height/1.2
         )
     },
+    desenha_inicio: function(){
+        contexto.drawImage(
+            abertura,
+            0,0,
+            1080,1080,
+            0,0,
+            canvas.width, canvas.height
+        )
+    }
+
 }
 
 function Obj_bala(p_atual_x, p_atual_y, ctx){ // funcão q cria um objeto  
@@ -308,14 +326,14 @@ function obj_asteroide(ctx){
 }
 
 function random_mobs(){
-    if(document.hasFocus() && !pause){
+    if(document.hasFocus() && !pause && continua){
         mob = new Obj_Mob(contexto);
         list_mobs.push(mob);
     }
 }
 
 function random_aste(){
-    if(document.hasFocus() && !pause){
+    if(document.hasFocus() && !pause && continua){
         asteroid = new obj_asteroide(contexto)
         list_aste.push(asteroid)
     }
@@ -470,10 +488,37 @@ function verifica_colisao(a, b){
 }
 
 function inicia(){
-    jogoON = true;
-    hero.colidido = false;
+    jogoON = true; // faz o jogo voltar a funcionar
+    hero.colidido = false; // faz o herois "reviver"
 }
 
+function ativa_menu(){
+    inicio = false; // tira a tela de menu inicial
+    continua = true; // faz voltar a adicionar monstros
+    ok.play()
+    document.getElementById('menu').style.display = 'none'
+}
+
+function reset(){
+    continua = true;
+    jogoON = true;
+    hero.colidido = false;
+    ok.play()
+    document.getElementById('restart').style.display = 'none'
+}
+function novo_jogo(){ // leve gambiarra para reiniciar valores
+    for(let i=0; i < list_ball.length; i++){
+        list_ball.pop(i)
+    }
+    for(let i=0; i < list_mobs.length; i++){
+        list_mobs.pop(i)
+    }
+    for(let i=0; i < list_aste.length; i++){
+        list_aste.pop(i)
+    }
+    hero.p_atual_x = 180
+    hero.p_atual_y = 400
+}
 
 
 if (jogoON){
@@ -485,37 +530,53 @@ if (jogoON){
 }
 
 function loop() { //loop que desenha os sprites infinitamente
-    if(jogoON && !pause){
-        parede.desenha(); //desenha o fundo a cada frame
-        parede.atualiza(); // faz a movimentação do fundo
-
-        hero.desenha();  // desenha o heroi
-        hero.atualiza(); // atualiza o movimento do herói
-        hero.desenha_tiro(); // desenha tiro quando pressionado
-    
-        //ameaças
-        mobCruzado1.desenha();
-        mobCruzado1.atualiza();
-
-        asteroide.desenha();
-        asteroide.atualiza();
-
-        //colisão	
-        colisoes.balas_mob(list_ball, list_mobs, verifica_colisao);
-        colisoes.hero_mob(hero, list_mobs, verifica_colisao);
-        colisoes.hero_asteroid(hero, list_aste, verifica_colisao);
-        colisoes.mob_asteroid(list_aste, list_mobs, verifica_colisao);
-    }
-    else if(jogoON && pause){
+    if(inicio == true){
         parede.desenha(); 
         parede.atualiza();
-        parede.desenha_pause()
+        parede.desenha_inicio();
     }
-    else{
-        parede.desenha(); 
-        parede.atualiza();
-        parede.desenha_game_over();
+    else {
+        if(jogoON == true && pause == false){
+            parede.desenha(); //desenha o fundo a cada frame
+            parede.atualiza(); // faz a movimentação do fundo
+
+            hero.desenha();  // desenha o heroi
+            hero.atualiza(); // atualiza o movimento do herói
+            hero.desenha_tiro(); // desenha tiro quando pressionado
+        
+            //ameaças
+            mobCruzado1.desenha();
+            mobCruzado1.atualiza();
+
+            asteroide.desenha();
+            asteroide.atualiza();
+
+            //colisão	
+            colisoes.balas_mob(list_ball, list_mobs, verifica_colisao);
+            colisoes.hero_mob(hero, list_mobs, verifica_colisao);
+            colisoes.hero_asteroid(hero, list_aste, verifica_colisao);
+            colisoes.mob_asteroid(list_aste, list_mobs, verifica_colisao);
+            
+        }
+        else if(jogoON && pause){
+            parede.desenha(); 
+            parede.atualiza();
+            parede.desenha_pause();
+        }
+        else{
+            musica_fundo.currentTime= 0.0;
+            parede.desenha(); 
+            parede.atualiza();
+            parede.desenha_game_over();
+            continua = false;
+            novo_jogo();
+            document.getElementById('restart').style.display = 'block';
+        }
     }
+    if(document.hasFocus()){
+        musica_fundo.play()
+    }
+
     
     return requestAnimationFrame(loop); // renderiza as funções e chama o loop mais uma vez
     
