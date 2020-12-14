@@ -345,67 +345,69 @@ function random_aste(){
 
 const botoes = {
     botoesOn: function(e){//função que atualiza os pontos do heroi;
-        let evento = e.keyCode;
-        if (evento == 38){ //38 == cima;
-            //console.log('cima ficou ok')
-            movCima = true;
-        }
-        if(evento == 40){ // 40 == baixo;
-            //console.log('baixo ficou ok')
-            movBaixo = true;
-        }   
-        if (evento == 37){ // 37 == esquerda;
-            //console.log('esquerdo ficou ok')
-            movEsquerda = true;
-        }
-        if (evento == 39){// 39 == direita;
-            //console.log('direito ficou ok')
-            movDireita = true;
-        }
-        if (evento == 32) { // 32 == espaço
-            tiro=true;
+        if (jogoON && continua && !pause){
+            let evento = e.keyCode;
+            if (evento == 38){ //38 == cima;
+                //console.log('cima ficou ok')
+                movCima = true;
+            }
+            if(evento == 40){ // 40 == baixo;
+                //console.log('baixo ficou ok')
+                movBaixo = true;
+            }   
+            if (evento == 37){ // 37 == esquerda;
+                //console.log('esquerdo ficou ok')
+                movEsquerda = true;
+            }
+            if (evento == 39){// 39 == direita;
+                //console.log('direito ficou ok')
+                movDireita = true;
+            }
+            if (evento == 32) { // 32 == espaço
+                tiro=true;
+            }
         }
     },
     botoesOff: function(e){
-        let evento = e.keyCode;
-        if (evento == 38){ //38 == cima;
-            //console.log('cima ficou false')
-            movCima = false;
-        }
-        if(evento == 40){ // 40 == baixo;
-            //console.log('baixo ficou false')
-            movBaixo = false;
-        }   
-        if (evento == 37){ // 37 == esquerda;
-            //console.log('esquerda ficou false')
-            movEsquerda = false;
-        }
-        if (evento == 39){// 39 == direita;
-            //console.log('direita ficou false')
-            movDireita = false;
-        }
-        if (evento == 13){ // enter
-            if(!pause){
-                pause = true;
+        if (jogoON && continua && !pause){
+            let evento = e.keyCode;
+            if (evento == 38){ //38 == cima;
+                //console.log('cima ficou false')
+                movCima = false;
             }
-            else{
-                pause = false;
-            }
-        }
-        if (evento == 32) { // 32 == espaço
-            //console.log('espaço ficou false');
-            if(tiro){
-                if (jogoON && continua){
-                    let x_bala = hero.p_atual_x + ( (44 - 7) / 2 ); // pega o valor atual de x da nave 
-                    let y_bala = hero.p_atual_y - 4; // pega o valor central da nave no ponto y
-                    tiro = false; // altera a variável de verificação
-                    tiro_som.currentTime=0.0; // tempo de resposta do audio é resetado
-                    tiro_som.play(); // inicia som
-                    var ball = new Obj_bala(x_bala, y_bala, contexto) // cria um objeto            
-                    list_ball.push(ball) // adiciona o objeto em uma lista
-                    //console.log(list_ball) // mostra a quantidade de itens da lista
-                }
+            if(evento == 40){ // 40 == baixo;
+                //console.log('baixo ficou false')
+                movBaixo = false;
             }   
+            if (evento == 37){ // 37 == esquerda;
+                //console.log('esquerda ficou false')
+                movEsquerda = false;
+            }
+            if (evento == 39){// 39 == direita;
+                //console.log('direita ficou false')
+                movDireita = false;
+            }
+            if (evento == 13){ // enter
+                if(!pause){
+                    pause = true;
+                }
+                else{
+                    pause = false;
+                }
+            }
+            if (evento == 32) { // 32 == espaço
+                //console.log('espaço ficou false');
+                if(tiro){
+                        let x_bala = hero.p_atual_x + ( (44 - 7) / 2 ); // pega o valor atual de x da nave 
+                        let y_bala = hero.p_atual_y - 4; // pega o valor central da nave no ponto y
+                        tiro = false; // altera a variável de verificação
+                        tiro_som.currentTime=0.0; // tempo de resposta do audio é resetado
+                        tiro_som.play(); // inicia som
+                        var ball = new Obj_bala(x_bala, y_bala, contexto) // cria um objeto            
+                        list_ball.push(ball) // adiciona o objeto em uma lista
+                        //console.log(list_ball) // mostra a quantidade de itens da lista
+                    }
+                }   
         }
 
     }
