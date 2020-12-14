@@ -120,7 +120,7 @@ const hero = {
         if (list_ball.length > 0){
             for (let index = 0; index < list_ball.length; index++) {
                 contexto.drawImage(
-                        balas, 
+                        balas,
                         522,59,
                         34,98,
                         list_ball[index].p_atual_x, list_ball[index].p_atual_y,
@@ -198,6 +198,7 @@ const asteroide = {
                 }
             }
         },
+
 
     atualiza : function (){
         if(list_aste.length > 0){
@@ -288,9 +289,9 @@ function Obj_bala(p_atual_x, p_atual_y, ctx){ // funcão q cria um objeto
     this.center_x = this.p_atual_x + (this.largura_game/2);
     this.center_y = this.p_atual_y + (this.altura_game/2);
     this.ctx = ctx;
-    this.colidido = false
-    
+    this.colidido = false;
 }
+
 
 
 function Obj_Mob(ctx){
@@ -305,6 +306,7 @@ function Obj_Mob(ctx){
     this.colidido = false;
     this.velocidade_x = Math.floor(Math.random() * 7) + 1
     this.velocidade_y = Math.floor(Math.random() * 7) + 1
+    
     this.explodir = function(){
             this.ctx.drawImage(
                 explosao,
@@ -325,6 +327,7 @@ function obj_asteroide(ctx){
     this.altura_game = 20
     this.colidido = false
 }
+
 
 function random_mobs(){
     if(document.hasFocus() && !pause && continua){
@@ -392,7 +395,7 @@ const botoes = {
         if (evento == 32) { // 32 == espaço
             //console.log('espaço ficou false');
             if(tiro){
-                if (jogoON){
+                if (jogoON && continua){
                     let x_bala = hero.p_atual_x + ( (44 - 7) / 2 ); // pega o valor atual de x da nave 
                     let y_bala = hero.p_atual_y - 4; // pega o valor central da nave no ponto y
                     tiro = false; // altera a variável de verificação
@@ -404,6 +407,7 @@ const botoes = {
                 }
             }   
         }
+
     }
 }
 
@@ -428,7 +432,6 @@ const colisoes = {
             if(lista_b[i].colidido){
                 lista_b[i].explodir()
                 lista_b.splice(i,1)
-                
             }
         }
     },
@@ -497,7 +500,6 @@ function verifica_colisao(a, b){
 function inicia(){
     jogoON = true; // faz o jogo voltar a funcionar
     hero.colidido = false; // faz o herois "reviver"
-    
 }
 
 function ativa_menu(){
@@ -561,13 +563,13 @@ function cronometro() {
     /*loop que desenha os sprites infinitamente*/
 
 function loop() { 
-    if(inicio == true){
+    if(inicio){
         parede.desenha(); 
         parede.atualiza();
         parede.desenha_inicio();
     }
     else {
-        if(jogoON == true && pause == false){
+        if(jogoON && !pause){
             parede.desenha(); //desenha o fundo a cada frame
             parede.atualiza(); // faz a movimentação do fundo
 
@@ -587,7 +589,7 @@ function loop() {
             colisoes.hero_mob(hero, list_mobs, verifica_colisao);
             colisoes.hero_asteroid(hero, list_aste, verifica_colisao);
             colisoes.mob_asteroid(list_aste, list_mobs, verifica_colisao);
-            
+
         }
         else if(jogoON && pause){
             parede.desenha(); 
@@ -595,16 +597,16 @@ function loop() {
             parede.desenha_pause();
         }
         else{
-            musica_fundo.currentTime= 0.0;
+            musica_fundo.currentTime = 0.0;
             parede.desenha(); 
             parede.atualiza();
             parede.desenha_game_over();
             
             continua = false;
             novo_jogo();
-            document.getElementById('topo_sco').style.display = 'none'
+            document.getElementById('topo_sco').style.display = 'none';
             document.getElementById('restart').style.display = 'block';
-            document.getElementById('record').style.display = 'block'
+            document.getElementById('record').style.display = 'block';
         }
     }
     if(document.hasFocus()){
@@ -612,8 +614,7 @@ function loop() {
     }
 
     
-    return requestAnimationFrame(loop); // renderiza as funções e chama o loop mais uma vez
-    
+    return requestAnimationFrame(loop); // renderiza as funções e chama o loop mais uma vez  
 };
 
 cronometro()
