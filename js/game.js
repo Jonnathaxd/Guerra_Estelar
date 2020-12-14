@@ -345,7 +345,7 @@ function random_aste(){
 
 const botoes = {
     botoesOn: function(e){//função que atualiza os pontos do heroi;
-        if (jogoON && continua && !pause){
+        if (jogoON && continua){
             let evento = e.keyCode;
             if (evento == 38){ //38 == cima;
                 //console.log('cima ficou ok')
@@ -369,7 +369,7 @@ const botoes = {
         }
     },
     botoesOff: function(e){
-        if (jogoON && continua && !pause){
+        if (jogoON && continua){
             let evento = e.keyCode;
             if (evento == 38){ //38 == cima;
                 //console.log('cima ficou false')
@@ -397,7 +397,7 @@ const botoes = {
             }
             if (evento == 32) { // 32 == espaço
                 //console.log('espaço ficou false');
-                if(tiro){
+                if(tiro && !pause){
                         let x_bala = hero.p_atual_x + ( (44 - 7) / 2 ); // pega o valor atual de x da nave 
                         let y_bala = hero.p_atual_y - 4; // pega o valor central da nave no ponto y
                         tiro = false; // altera a variável de verificação
