@@ -518,6 +518,7 @@ function reset(){
     time = 0
     pontuacao = 0
     hero.colidido = false;
+    movEsquerda = movDireita = movBaixo = movCima = tiro = pause = false;
     ok.play()
     document.getElementById("tempo").innerHTML = time;
     document.getElementById('score').innerHTML = pontuacao;
