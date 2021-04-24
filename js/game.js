@@ -15,7 +15,7 @@ const mobReto_img = new Image(); //constante que vai receber imagem dos mobs que
 mobReto_img.src = './images/mobReto.png';
 
 const mobCruzado1_img = new Image(); // constante que vai receber a imagem dos mobs que vão se movimentar cruzando a tela
-mobCruzado1_img.src = './images/mobCruzado1.png';
+mobCruzado1_img.src = './images/mine.png';
 
 const parede_img = new Image(); // variável para receber imagem do fundo
 parede_img.src = './images/fundo3.png';
@@ -60,10 +60,10 @@ const hero = {
     p_y_recorte: 82, // ponto inicial y no plano cartesiano da sprite
     largura_recorte: 986, 
     altura_recorte: 785,
-    p_atual_x: 180, // ponto atual no plano cartesiano x do game 
+    p_atual_x: 130, // ponto atual no plano cartesiano x do game 
     p_atual_y: 400, // ponto atual no plano cartesiano y do game 
-    largura_game: 44, // largura do desenho no game
-    altura_game: 34, // altura do desenho no game
+    largura_game: 22, // largura do desenho no game
+    altura_game: 30, // altura do desenho no game
     center_x: 0,
     center_y: 0,
     colidido:false, //variável para verificar colisões...
@@ -84,7 +84,7 @@ const hero = {
             if (hero.p_atual_x >= 0 ){ // condição q faz a colisão com o tamanho mínimo da tela canvas 
                 //console.log('Andando para esquerda');
                 hero.p_atual_x -= 3; // ponto atual do heroi
-                hero.center_x = (hero.p_atual_x + 44/2)
+                hero.center_x = (hero.p_atual_x + 22/2)
 
             }
         }
@@ -92,21 +92,21 @@ const hero = {
             if (hero.p_atual_x <= (canvas.width - hero.largura_game)){ // condição q colide com a largura máxima canvas 
                 //console.log('Andando para direita');
                 hero.p_atual_x += 3;
-                hero.center_x = (hero.p_atual_x + 44/2)
+                hero.center_x = (hero.p_atual_x + 22/2)
             }
         }
         if (movCima && !movBaixo) {
             if (hero.p_atual_y >= 0){
                 //console.log('Subindo');
                 hero.p_atual_y -= 3;
-                hero.center_y = hero.p_atual_y + 34/2
+                hero.center_y = hero.p_atual_y + 17/2
             }
         }
         if (movBaixo && !movCima) {
             if (hero.p_atual_y <= (canvas.height - hero.altura_game)){
                 //console.log('Descendo');
                 hero.p_atual_y += 3;
-                hero.center_y = hero.p_atual_y + 34/2
+                hero.center_y = hero.p_atual_y + 17/2
             }
         }
         for (let index = 0; index < list_ball.length; index++) { // faz a remoção da bala da lista quando ela chega no limite em y
@@ -123,8 +123,8 @@ const hero = {
                         balas,
                         522,59,
                         34,98,
-                        list_ball[index].p_atual_x, list_ball[index].p_atual_y,
-                        34/5, 98/10)
+                        list_ball[index].p_atual_x-9, list_ball[index].p_atual_y,
+                    (34/5)/2, 95/10)
 
                         list_ball[index].p_atual_y -= 4;
             }
@@ -135,13 +135,13 @@ const hero = {
 
 
 const mobCruzado1 = {
-    p_x_recorte : 13, //ponto inicial do x no plano cartesiano da sprite
-    p_y_recorte : 10, //ponto inicial do y no plano cartesiano da sprite
-    largura_recorte : 162,
-    altura_recorte : 216,
+    p_x_recorte : 24, //ponto inicial do x no plano cartesiano da sprite
+    p_y_recorte : 17, //ponto inicial do y no plano cartesiano da sprite
+    largura_recorte : 487,
+    altura_recorte : 482,
     p_atual_x : Math.floor(Math.random ()* canvas.width) + 1, //ponto atual no plano cartesiano x do game
     p_atual_y : -100, //ponto atual no plano cartesiano y do game
-    largura_game : 25,//largura da imagem no game
+    largura_game : 15.5,//largura da imagem no game
     altura_game : 30,//altura da imagem no game
 
     desenha : function (){
@@ -193,7 +193,7 @@ const asteroide = {
                         5, 20,
                         150, 125,
                         list_aste[i].p_atual_x, list_aste[i].p_atual_y,
-                        list_aste[i].largura_game, list_aste[i].altura_game
+                        list_aste[i].largura_game /2, list_aste[i].altura_game
                     )
                 }
             }
@@ -304,8 +304,8 @@ function Obj_Mob(ctx){
     this.center_y = this.p_atual_y + 30/2;
     this.direcao = true; 
     this.colidido = false;
-    this.velocidade_x = Math.floor(Math.random() * 7) + 1
-    this.velocidade_y = Math.floor(Math.random() * 7) + 1
+    this.velocidade_x = Math.floor(Math.random() * 4) + 1
+    this.velocidade_y = Math.floor(Math.random() * 4) + 1
     
     this.explodir = function(){
             this.ctx.drawImage(
@@ -464,6 +464,10 @@ const colisoes = {
             }
         }
         if(hero.colidido){
+            if(pontuacao > JSON.parse(localStorage.getItem('score'))){
+                localStorage.setItem("score", pontuacao) 
+                localStorage.setItem("time", time) 
+            }
             jogoON=false;
             document.getElementById('record_final').innerHTML = `Pontuação: ${pontuacao}`
             document.getElementById('tempo_final').innerHTML = `Tempo: ${time}s`
@@ -476,6 +480,11 @@ const colisoes = {
                 funcao(hero, list_aste[i]);
             }
             if(hero.colidido){
+                if(pontuacao > JSON.parse(localStorage.getItem('score'))){
+                    localStorage.setItem("score", pontuacao) 
+                    localStorage.setItem("time", time) 
+                }
+                
                 jogoON = false;
                 document.getElementById('record_final').innerHTML = `Pontuação: ${pontuacao}`
                 document.getElementById('tempo_final').innerHTML = `Tempo: ${time}s`
@@ -508,7 +517,7 @@ function ativa_menu(){
     inicio = false; // tira a tela de menu inicial
     continua = true; // faz voltar a adicionar monstros
     ok.play()
-    document.getElementById('topo_sco').style.display = 'block'
+    document.getElementById('topo_sco').style.display = 'flex'
     document.getElementById('menu').style.display = 'none'
 }
 
@@ -522,7 +531,7 @@ function reset(){
     ok.play()
     document.getElementById("tempo").innerHTML = time;
     document.getElementById('score').innerHTML = pontuacao;
-    document.getElementById('topo_sco').style.display = 'block'
+    document.getElementById('topo_sco').style.display = 'flex'
     document.getElementById('record').style.display = 'none'
 }
 function novo_jogo(){ // leve gambiarra para reiniciar valores
@@ -535,7 +544,7 @@ function novo_jogo(){ // leve gambiarra para reiniciar valores
     for(let i=0; i < list_aste.length; i++){
         list_aste.pop(i)
     }
-    hero.p_atual_x = 180
+    hero.p_atual_x = 130
     hero.p_atual_y = 400
 }
 
@@ -610,6 +619,15 @@ function loop() {
             document.getElementById('topo_sco').style.display = 'none';
             document.getElementById('restart').style.display = 'block';
             document.getElementById('record').style.display = 'block';
+            let score = localStorage.getItem("score") == "" ? 0 : localStorage.getItem("score") 
+            let time = localStorage.getItem("time") == "" ? 0: localStorage.getItem("time") 
+            document.getElementById('melhor_record').innerHTML = `<div>
+            Melhor score: ${score}
+            </div>
+            <div>Melhor time: ${time}</div>
+            `
+
+
         }
     }
     if(document.hasFocus()){
@@ -622,3 +640,15 @@ function loop() {
 
 cronometro()
 loop() // ativa a função loop :D
+
+document.addEventListener("DOMContentLoaded", ()=>{
+    let score = localStorage.getItem("score") == "" ? 0 : localStorage.getItem("score") 
+    let time = localStorage.getItem("time") == "" ? 0: localStorage.getItem("time") 
+    document.getElementById('melhor_record').innerHTML = `<div>
+    Melhor score: ${score}
+    </div>
+    <div>Melhor time: ${time}</div>
+    `
+
+
+})

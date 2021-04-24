@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body{
   background: grey;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -6,24 +12,35 @@ body{
 #jogar {
   font-family: 'Press Start 2P', cursive;
 }
+
 h1 {
   display: inline-block;
   text-shadow: 0 0 5px white; 
   transform: translateY(-25%);
 }
+
 #container {
-  margin-top: 1.8vw;
-  box-sizing: border-box;
-  text-align: center;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
   padding: 0 2.5vw 0 2.5vw;
+  justify-content: center;
+  align-items: center;
 }
+
 #fase {
-  height: 80vh;
-  width: 32vw;
+  height: 100%;
+  width: 100%;
+  max-width: 900px;
+  border-radius: 0.5rem;
 }
+
 #interface {
-  width: 32vw;/*tamanho largura div*/
-  height: 80vh; /*altura div*/
+  border-radius: 0.5rem;
+  width: 80%;/*tamanho largura div*/
+  height: 90%; /*altura div*/
+  max-width: 900px;
+  border-radius: 1rem;
   border: 2px solid black; /*tamanho/tipo/cor da borda*/
   margin: 0  2%;
   display: inline-block;
@@ -31,35 +48,7 @@ h1 {
   
 }
 
-#integrantes {
-  background-image: url('./images/fundo_inte.gif');
-  background-size: cover;
-  width: 28vw;
-  height: 28vw;
-  border-radius: 50%;
-  position: fixed;
-  top: 30%;
-  transform: translateY(-30%);
-  border: 5px solid black;
-  box-shadow: 0px 0px 8px white;
-  font-size: 1.5vw;
-  
-}
-#integrantes p{
-  color:white;
-  text-shadow: 1px 1px 10px black;
-  position: relative;
-  top: 15%;
-  text-align: center;
-}
-#integrantes h2{
-  color: orange;
-  text-shadow: 0px 0px 10px black;
-  position: relative;
-  top: 15%;
-  transform: translateY(-50%);
-  text-align: center;
-}
+/*              inform about game               s*/
 
 #inform{
   background-color: rgba(255, 255, 255, 0.8);
@@ -84,15 +73,17 @@ h1 {
 #menu {
   bottom: 7rem;
   position: relative;
+  display: flex;
+  justify-content: center;
 
 
 }
 #menu button {
   font-family: 'Press Start 2P', cursive;
   cursor: pointer;
-  border-radius: 1.2rem;
-  font-size: 1.5vw;
-  padding: 1.5vw;
+  border-radius: 0.3rem;
+  font-size: 1.4rem;
+  padding: 1.2rem;
   border: none;
   transition: 0.5s;
 }
@@ -111,9 +102,9 @@ h1 {
 #restart button {
   font-family: 'Press Start 2P', cursive;
   cursor: pointer;
-  border-radius: 1.1rem;
-  font-size: 1.5vw;
-  padding: 1.5vw;
+  border-radius: 0.3rem;
+  font-size: 1.4rem;
+  padding: 1.2rem;
   border: none;
   transition: 0.5s;
 }
@@ -124,14 +115,17 @@ h1 {
 }
 
 #topo_sco {
+  justify-content: space-around;
   margin: 1rem 0 0 1rem;
   bottom:100%;
   right: 2vw;
   position: relative;
   color: white;
-  font-size: 0.8vw;
+  font-size: 1.1rem;
   font-family: 'Press Start 2P', cursive;
   display: none;
+  
+  
 }
 
 #tempo {
@@ -156,9 +150,17 @@ h1 {
 }
 
 #record_final{
+  font-size: 1.2rem;
   display: block;
 }
 #tempo_final{ 
+  font-size: 1.2rem;
   display: block;
   padding: 0.5vw;
+}
+
+#melhor_record {
+  font-size: 1.2rem;
+  display: block;
+  margin: 15px;
 }
