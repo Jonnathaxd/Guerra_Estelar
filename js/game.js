@@ -466,8 +466,12 @@ const colisoes = {
         if(hero.colidido){
             if(pontuacao > JSON.parse(localStorage.getItem('score'))){
                 localStorage.setItem("score", pontuacao) 
+                
+            }
+            if(time > JSON.parse(localStorage.getItem('time'))){
                 localStorage.setItem("time", time) 
             }
+            
             jogoON=false;
             document.getElementById('record_final').innerHTML = `Pontuação: ${pontuacao}`
             document.getElementById('tempo_final').innerHTML = `Tempo: ${time}s`
@@ -482,6 +486,8 @@ const colisoes = {
             if(hero.colidido){
                 if(pontuacao > JSON.parse(localStorage.getItem('score'))){
                     localStorage.setItem("score", pontuacao) 
+                }
+                if(time > JSON.parse(localStorage.getItem('time'))){
                     localStorage.setItem("time", time) 
                 }
                 
