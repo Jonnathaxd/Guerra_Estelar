@@ -8,7 +8,7 @@
 
 # 📋 Sobre
 
-<p>Guerra estelar foi uma aplicação feita para testar os conhecimentos de javascript, contando com uma parte de recorde em localstorage e algumas peculiaridades :)</p>
+<p>Guerra estelar foi uma aplicação pessoal feita para testar os conhecimentos de javascript, contando com uma parte de recorde em localstorage e algumas peculiaridades :)</p>
 
 
 ---
