@@ -4,7 +4,7 @@
 
 <h1 align='center'>----Em desenvolvimento----</h1>
 
-<h2 align='center'><a href='https://jonnathaxd.github.io/Projeto_Guerra_Estelar/'>TESTE AQUI A APLICAÇÃO</a></h2>
+<h2 align='center'><a href='https://jonnathaxd.github.io/Guerra_Estelar/'>TESTE AQUI A APLICAÇÃO</a></h2>
 
 # 📋 Sobre
 
